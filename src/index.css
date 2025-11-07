@@ -1,0 +1,171 @@
+@import "tailwindcss";
+
+@theme {
+    --font-inter: "Inter", sans-serif;
+    --font-anton: "Anton", sans-serif;
+
+    --color-bg: #111;
+    --color-text: #fefefe;
+    --color-accent: #ffcc00;
+    --color-border: #000;
+    --shadow-solid: 5px 5px 0 #ffcc00;
+}
+
+@layer base {
+    body {
+        font-family: var(--font-inter);
+        color: var(--color-text);
+        background-color: var(--color-bg);
+        background-image:
+                radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.05) 0%, transparent 25%),
+                radial-gradient(circle at 90% 0%, rgba(255, 255, 255, 0.05) 0%, transparent 25%),
+                linear-gradient(45deg, rgba(255, 255, 255, 0.03) 25%, transparent 25%),
+                linear-gradient(-45deg, rgba(255, 255, 255, 0.03) 25%, transparent 25%);
+        background-size: 120px 120px, 150px 150px, 80px 80px, 80px 80px;
+        background-blend-mode: overlay;
+        overflow-x: hidden;
+    }
+
+    main {
+        @apply flex flex-col justify-center items-center min-h-screen px-6 py-10 relative overflow-hidden;
+    }
+
+    main::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: url("https://www.transparenttextures.com/patterns/asfalt-dark.png");
+        opacity: 0.18;
+        mix-blend-mode: overlay;
+        pointer-events: none;
+    }
+}
+
+@layer components {
+    .meme-wrapper {
+        @apply flex flex-col items-center gap-10 w-full max-w-xl relative z-10;
+    }
+
+    h1 {
+        font-family: var(--font-anton);
+        @apply text-6xl md:text-7xl uppercase text-center font-bold tracking-widest;
+        text-shadow: 5px 5px 0 var(--color-accent), 0 0 20px rgba(255, 204, 0, 0.3);
+        letter-spacing: 0.1em;
+        animation: floaty 3s ease-in-out infinite;
+    }
+
+    @keyframes floaty {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-5px); }
+    }
+
+    .subtitle {
+        @apply text-gray-400 text-sm md:text-base tracking-widest text-center uppercase;
+        letter-spacing: 0.25em;
+        opacity: 0.8;
+    }
+
+    .input-section {
+        @apply flex flex-col items-center gap-3 w-full;
+    }
+
+    .input-section input {
+        @apply w-full text-center text-4xl font-bold border-4 border-[var(--color-accent)]
+        bg-[#222] text-[var(--color-text)] py-4 rounded-lg shadow-[var(--shadow-solid)]
+        focus:outline-none focus:ring-4 focus:ring-[var(--color-accent)];
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .input-section input:focus {
+        transform: scale(1.02);
+    }
+
+    button {
+        @apply mt-6 bg-[var(--color-accent)] border-4 border-[var(--color-border)] text-black px-8 py-3
+        text-lg font-extrabold uppercase rounded-md shadow-[var(--shadow-solid)] transition-all duration-200;
+    }
+
+    button:hover {
+        transform: scale(1.1) rotate(-1deg);
+        filter: brightness(1.1);
+    }
+
+    .error-text {
+        @apply text-red-400 mt-2 text-sm italic animate-pulse;
+        text-shadow: 0 0 6px rgba(255, 0, 0, 0.6);
+    }
+
+    .meme-video-section {
+        @apply flex flex-col items-center justify-center mt-10 space-y-4;
+        animation: fadeIn 0.3s ease-in;
+    }
+
+    .inline-video {
+        max-width: 85vw;
+        max-height: 65vh;
+        border-radius: 10px;
+        object-fit: contain;
+        box-shadow: 0 0 40px rgba(255, 204, 0, 0.3);
+    }
+
+    .meme-caption {
+        @apply text-center text-white text-2xl md:text-3xl font-extrabold uppercase mb-2;
+        color: var(--color-accent);
+        text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+        letter-spacing: 0.1em;
+        animation: memeText 0.4s ease-out forwards;
+    }
+
+    @keyframes memeText {
+        0% { opacity: 0; transform: translateY(-10px); }
+        100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .cancel-btn {
+        @apply bg-red-600 text-white font-semibold px-5 py-2 rounded-lg hover:bg-red-700 transition-all;
+        box-shadow: 3px 3px 0 #000;
+    }
+
+    .cancel-btn:hover {
+        transform: scale(1.1) rotate(-1deg);
+        background-color: #ff3333;
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.footer {
+    @apply flex flex-col items-center justify-center text-center py-10 space-y-3 relative z-10;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+}
+
+.footer-text {
+    @apply text-gray-400 text-sm tracking-wide;
+}
+
+.footer-text span {
+    color: var(--color-accent);
+    font-weight: 600;
+}
+
+.footer-links {
+    @apply flex gap-6 text-base font-bold uppercase;
+}
+
+.footer-links a {
+    color: var(--color-accent);
+    text-shadow: 1px 1px 2px black;
+    transition: all 0.2s ease-in-out;
+}
+
+.footer-links a:hover {
+    transform: scale(1.1) rotate(-2deg);
+    color: #fff;
+}
+
+.footer-copy {
+    @apply text-xs text-gray-500 mt-3;
+}
