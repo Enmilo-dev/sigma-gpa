@@ -18,10 +18,8 @@
         background-color: var(--color-bg);
         background-image:
                 radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.05) 0%, transparent 25%),
-                radial-gradient(circle at 90% 0%, rgba(255, 255, 255, 0.05) 0%, transparent 25%),
-                linear-gradient(45deg, rgba(255, 255, 255, 0.03) 25%, transparent 25%),
-                linear-gradient(-45deg, rgba(255, 255, 255, 0.03) 25%, transparent 25%);
-        background-size: 120px 120px, 150px 150px, 80px 80px, 80px 80px;
+                radial-gradient(circle at 90% 0%, rgba(255, 255, 255, 0.05) 0%, transparent 25%);
+        background-size: 150px 150px, 180px 180px;
         background-blend-mode: overlay;
         overflow-x: hidden;
     }
@@ -48,7 +46,7 @@
 
     h1 {
         font-family: var(--font-anton);
-        @apply text-6xl md:text-7xl uppercase text-center font-bold tracking-widest;
+        @apply text-5xl sm:text-6xl md:text-7xl uppercase text-center font-bold tracking-widest;
         text-shadow: 5px 5px 0 var(--color-accent), 0 0 20px rgba(255, 204, 0, 0.3);
         letter-spacing: 0.1em;
         animation: floaty 3s ease-in-out infinite;
@@ -90,9 +88,20 @@
         filter: brightness(1.1);
     }
 
+    button:focus-visible {
+        outline: 3px solid var(--color-accent);
+        outline-offset: 3px;
+    }
+
     .error-text {
         @apply text-red-400 mt-2 text-sm italic animate-pulse;
         text-shadow: 0 0 6px rgba(255, 0, 0, 0.6);
+    }
+
+    .loading-text {
+        @apply text-yellow-400 text-lg font-bold animate-pulse;
+        text-shadow: 0 0 10px rgba(255, 204, 0, 0.5);
+        margin-bottom: 1rem;
     }
 
     .meme-video-section {
@@ -101,8 +110,9 @@
     }
 
     .inline-video {
-        max-width: 85vw;
-        max-height: 65vh;
+        max-width: min(85vw, 600px);
+        max-height: min(65vh, 500px);
+        width: 100%;
         border-radius: 10px;
         object-fit: contain;
         box-shadow: 0 0 40px rgba(255, 204, 0, 0.3);
@@ -123,18 +133,32 @@
 
     .cancel-btn {
         @apply bg-red-600 text-white font-semibold px-5 py-2 rounded-lg hover:bg-red-700 transition-all;
-        box-shadow: 3px 3px 0 #000;
+        border: 3px solid #000;
+        box-shadow: 5px 5px 0 #000;
     }
 
     .cancel-btn:hover {
         transform: scale(1.1) rotate(-1deg);
         background-color: #ff3333;
     }
+
+    .cancel-btn:focus-visible {
+        outline: 3px solid #ff3333;
+        outline-offset: 3px;
+    }
 }
 
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
 }
 
 .footer {
@@ -166,6 +190,34 @@
     color: #fff;
 }
 
+.footer-links a:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+    border-radius: 2px;
+}
+
 .footer-copy {
     @apply text-xs text-gray-500 mt-3;
+}
+
+.loading-spinner {
+    @apply flex flex-col items-center gap-4;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid rgba(255, 204, 0, 0.2);
+    border-top-color: var(--color-accent);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.loading-text {
+    @apply text-yellow-400 text-lg font-bold animate-pulse;
+    text-shadow: 0 0 10px rgba(255, 204, 0, 0.5);
 }
